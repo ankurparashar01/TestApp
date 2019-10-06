@@ -16,7 +16,7 @@ public class ExceptionHandlerControllerAdvice {
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public @ResponseBody SendResponse handleResourceNotFound(final RecordException exception,
 			final HttpServletRequest request) {
-
+ 
 		/*ExceptionResponse error = new ExceptionResponse();
 		error.setErrorMessage(exception.getMessage());
 		error.callerURL(request.getRequestURI());*/
