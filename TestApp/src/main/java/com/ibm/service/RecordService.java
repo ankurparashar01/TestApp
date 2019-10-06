@@ -43,13 +43,7 @@ public class RecordService {
 		
 	}
 	
-	public SendResponse getRecordNull() throws RecordServiceException {
-		return null;
-	}
-	
-	public SendResponse getRecordException() throws RecordServiceException {
-		throw new RecordServiceException();
-	}
+
 	
 
 }

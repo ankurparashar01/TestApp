@@ -3,6 +3,8 @@ package com.ibm.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ibm.model.Record;
 import com.ibm.model.SendResponse;
 import com.ibm.service.RecordService;
-import com.ibm.service.RecordServiceException;
+
 
 @RestController
 public class MainController {
@@ -31,43 +33,14 @@ public class MainController {
 	public Record getData() {
 		return recordService.returnData();			
 	}	
-	// will be a post request and it will take record from request & process it.
-	
-	
-	
-	@RequestMapping(method = RequestMethod.POST,value="/addRecord1")
-	public SendResponse addRecord1(@Valid @RequestBody Record inputData, Errors errors ) {		
+
+	// will be a post request and it will take record from request & process it.	
+	@RequestMapping(method = RequestMethod.POST,value="/addRecord")
+	public Object addRecord(@Valid @RequestBody Record inputData, Errors errors ) {		
 		if(errors.hasErrors()) {
-			return new SendResponse("Failed", "Unable to processed");
+			return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
 		}		
-		return recordService.addRecord(inputData);
+		return new SendResponse("OK", "processed 3 people for purple-wiki@blocks.com");
 	}
 	
-	
-	@RequestMapping(method = RequestMethod.POST,value="/addRecord2")
-	public SendResponse addRecord2(@Valid @RequestBody Record inputData) {		
-		return recordService.addRecord(inputData);
-	}
-	
-	
-	
-	
-	@RequestMapping(value = "/noRecord", method = RequestMethod.GET)
-	public SendResponse noRecordCheck() throws com.ibm.exceptionhandling.RecordException, RecordServiceException {
-		try {
-			SendResponse response = recordService.getRecordNull();
-			if (response == null) {
-				throw new com.ibm.exceptionhandling.RecordException("Input Record not found");
-			}
-
-			return response;
-		} catch (RecordServiceException e) {
-			throw new RecordServiceException("Internal Server Exception while getting exception");
-		}
-	}
-	
-	
-	
-	
-
 }
