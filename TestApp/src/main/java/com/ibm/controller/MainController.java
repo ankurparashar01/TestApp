@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.model.Record;
-import com.ibm.service.RecordService;
+import com.ibm.service.RecordServiceImpl;
 
 @RestController
 @RequestMapping(value="/TestApp")
 public class MainController {
 	
 	@Autowired
-	private RecordService recordService;
+	private RecordServiceImpl recordService;
 	
 	@RequestMapping("/welcome")
 	public String Welcome() {
-		return "Welcome to Test App - a sample application....!!!!!!!!!!!" ;
-	}
+		return "Welcome to Test App - a sample application....!!!!!!!!!!!" ;	}
 	
 	
 	// print input record data in json format
@@ -36,13 +35,8 @@ public class MainController {
 
 	// will be a post request and it will take record from request & process it.	
 	@RequestMapping(method = RequestMethod.POST,value="/addRecord")
-	public Object addRecord(@Valid @RequestBody Record inputData, BindingResult result, Errors errors ) {
-		
+	public Object addRecord(@Valid @RequestBody Record inputData, BindingResult result, Errors errors ) {		
 		if(errors.hasErrors()) {
-			/*Result resulting = new Result();
-			 * result.setMsg(errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));	
-	            return ResponseEntity.badRequest().body(result);*/
-			
 			return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
 		}		
 		return recordService.addRecord(inputData);

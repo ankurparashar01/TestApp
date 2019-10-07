@@ -26,7 +26,7 @@ import com.ibm.TestAppBootStrap;
 import com.ibm.model.People;
 import com.ibm.model.Record;
 import com.ibm.model.SendResponse;
-import com.ibm.service.RecordService;
+import com.ibm.service.RecordServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestAppBootStrap.class, 
@@ -41,11 +41,10 @@ public class MainControllerTest {
 	HttpHeaders headers = new HttpHeaders();
 	
 	@Autowired
-	private RecordService recordService;
+	private RecordServiceImpl recordService;
 	
 	@Test
 	public void getRecord() {
-		Record record=  recordService.getRecord();		
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> responseEntity = null;
         Record responses= null;
