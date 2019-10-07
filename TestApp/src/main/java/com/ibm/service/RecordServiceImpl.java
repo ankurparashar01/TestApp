@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ibm.model.People;
 import com.ibm.model.Record;
-import com.ibm.model.SendResponse;
+import com.ibm.model.RecordServiceResponse;
 
 @Service
 public class RecordServiceImpl implements RecordService{
@@ -38,8 +38,8 @@ public class RecordServiceImpl implements RecordService{
 		return record;
 	}
 
-	public SendResponse addRecord(Record inputData) {
-		return new SendResponse("OK", "processed 3 people for purple-wiki@blocks.com");
+	public RecordServiceResponse addRecord(Record inputData) {
+		return new RecordServiceResponse("OK", "processed 3 people for purple-wiki@blocks.com");
 		
 		
 	}

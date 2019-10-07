@@ -1,15 +1,15 @@
 package com.ibm.model;
 
-public class SendResponse {
+public class RecordServiceResponse {
 	
 	private String status;
 	private String details;
 	
 	
-	public SendResponse() {
+	public RecordServiceResponse() {
 	}
 	
-	public SendResponse(String status, String details) {
+	public RecordServiceResponse(String status, String details) {
 		super();
 		this.status = status;
 		this.details = details;

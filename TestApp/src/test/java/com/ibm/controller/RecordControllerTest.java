@@ -25,14 +25,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.TestAppBootStrap;
 import com.ibm.model.People;
 import com.ibm.model.Record;
-import com.ibm.model.SendResponse;
+import com.ibm.model.RecordServiceResponse;
+import com.ibm.service.RecordService;
 import com.ibm.service.RecordServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestAppBootStrap.class, 
 webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
-public class MainControllerTest {
+public class RecordControllerTest {
 
 	@LocalServerPort
 	private int port;
@@ -41,7 +42,7 @@ public class MainControllerTest {
 	HttpHeaders headers = new HttpHeaders();
 	
 	@Autowired
-	private RecordServiceImpl recordService;
+	private RecordService recordService;
 	
 	@Test
 	public void getRecord() {
@@ -74,7 +75,7 @@ public class MainControllerTest {
 		Record record = new Record();
 		ObjectMapper objectMapper = new ObjectMapper();
 		HttpEntity<Record> entity = new HttpEntity<Record>(record, headers);
-		SendResponse responses= null;	
+		RecordServiceResponse responses= null;	
 		ResponseEntity<String> responseEntity = null;			
 		
 		record.setRequestId("4235-01277-239894");
@@ -93,7 +94,7 @@ public class MainControllerTest {
 					
 		try {
 		responseEntity = restTemplate.exchange(createURLWithPort("/TestApp/addRecord"), HttpMethod.POST, entity, String.class);		
-		responses= objectMapper.readValue(responseEntity.getBody(), SendResponse.class);
+		responses= objectMapper.readValue(responseEntity.getBody(), RecordServiceResponse.class);
 			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
