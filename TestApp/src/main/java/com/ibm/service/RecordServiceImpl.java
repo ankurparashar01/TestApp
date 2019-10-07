@@ -12,39 +12,27 @@ import com.ibm.model.RecordServiceResponse;
 @Service
 public class RecordServiceImpl implements RecordService{
 
-	public Record getRecord() {
-		
-		Record record = new Record();
-		
+	public Record getRecord() {		
+		Record record = new Record();		
 		record.setRequestId("4235-01277-239894");
-		record.setEmailAddress("purple-wiki@blocks.com");
-				
+		record.setEmailAddress("purple-wiki@blocks.com");				
 		People nameOne= new People();
-		nameOne.setName("John Smith");
-		
+		nameOne.setName("John Smith");		
 		People nameTwo= new People();
-		nameTwo.setName("Willy Wonka");
-		
+		nameTwo.setName("Willy Wonka");		
 		People nameThree= new People();
-		nameThree.setName("Margaret Watson");
-		
+		nameThree.setName("Margaret Watson");		
 		List<People> peoplelist = new ArrayList<People>();
 		peoplelist.add(nameOne);
 		peoplelist.add(nameTwo);
-		peoplelist.add(nameThree);
-		
-		record.setPepole(peoplelist);	
-		
+		peoplelist.add(nameThree);		
+		record.setPepole(peoplelist);		
 		return record;
 	}
 
 	public RecordServiceResponse addRecord(Record inputData) {
-		return new RecordServiceResponse("OK", "processed 3 people for purple-wiki@blocks.com");
-		
+		return new RecordServiceResponse("OK", "processed 3 people for purple-wiki@blocks.com");		
 		
 	}
-	
-
-	
 
 }

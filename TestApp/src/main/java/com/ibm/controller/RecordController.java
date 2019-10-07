@@ -19,7 +19,6 @@ import com.ibm.service.RecordService;
 import com.ibm.service.RecordServiceImpl;
 
 @RestController
-@RequestMapping(value="/TestApp")
 public class RecordController {
 	
 	@Autowired
@@ -27,18 +26,14 @@ public class RecordController {
 	
 	@RequestMapping("/welcome")
 	public String Welcome() {
-		return "Welcome to Test App - a sample application....!!!!!!!!!!!" ;	}
+		return "Welcome to Test App - a sample application....!!!!!!!!!!!" ;	}	
 	
-	
-	// print input record data in json format
 	@GetMapping("/record")
 	public Record getRecord() {
 		return recordService.getRecord();			
 	}	
 
-	// will be a post request and it will take record from request & process it.	
 	@PostMapping("/record")
-	//@RequestMapping(method = RequestMethod.POST,value="/record")
 	public Object addRecord(@Valid @RequestBody Record record, Errors errors ) {		
 		if(errors.hasErrors()) {
 			return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);

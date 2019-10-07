@@ -5,9 +5,7 @@ public class RecordServiceResponse {
 	private String status;
 	private String details;
 	
-	
-	public RecordServiceResponse() {
-	}
+	public RecordServiceResponse() {}
 	
 	public RecordServiceResponse(String status, String details) {
 		super();
@@ -27,9 +25,4 @@ public class RecordServiceResponse {
 		this.details = details;
 	}
 	
-	
-	
-	
-	
-
 }

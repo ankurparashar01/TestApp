@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -19,30 +18,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.TestAppBootStrap;
 import com.ibm.model.People;
 import com.ibm.model.Record;
 import com.ibm.model.RecordServiceResponse;
-import com.ibm.service.RecordService;
-import com.ibm.service.RecordServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestAppBootStrap.class, 
 webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
 public class RecordControllerTest {
-
+	
+	private static final String RECORD_URL="/TestApp/record";
+		
 	@LocalServerPort
 	private int port;
 
 	TestRestTemplate restTemplate = new TestRestTemplate();
 	HttpHeaders headers = new HttpHeaders();
-	
-	@Autowired
-	private RecordService recordService;
 	
 	@Test
 	public void getRecord() {
@@ -51,16 +45,9 @@ public class RecordControllerTest {
         Record responses= null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-        responseEntity = restTemplate.exchange(createURLWithPort("/TestApp/getRecord"), HttpMethod.GET, entity, String.class);
+        responseEntity = restTemplate.exchange(createURLWithPort(RECORD_URL), HttpMethod.GET, entity, String.class);
         responses= objectMapper.readValue(responseEntity.getBody(), Record.class);
-        }catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+        }catch (IOException e) {
 			e.printStackTrace();
 		}
        
@@ -93,21 +80,14 @@ public class RecordControllerTest {
 		record.setPepole(peoplelist);				
 					
 		try {
-		responseEntity = restTemplate.exchange(createURLWithPort("/TestApp/addRecord"), HttpMethod.POST, entity, String.class);		
+		responseEntity = restTemplate.exchange(createURLWithPort(RECORD_URL), HttpMethod.POST, entity, String.class);		
 		responses= objectMapper.readValue(responseEntity.getBody(), RecordServiceResponse.class);
 			
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-		assertEquals("processed 3 people for purple-wiki@blocks.com",responses.getDetails() );
+		assertEquals("processed 3 people for purple-wiki@blocks.com", responses.getDetails());
 		assertEquals("OK",responses.getStatus() );
 	}
 	
@@ -115,7 +95,6 @@ public class RecordControllerTest {
 	public void addRecordNoRequestNumber() {
 		
 		Record record = new Record();
-		//record.setRequestId("4235-01277-239894");
 		record.setEmailAddress("purple-wiki@blocks.com");
 		People nameOne= new People();
 		nameOne.setName("John Smith");
@@ -130,7 +109,7 @@ public class RecordControllerTest {
 		record.setPepole(peoplelist);
 				
 		HttpEntity<Record> entity = new HttpEntity<Record>(record, headers);		
-		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/TestApp/addRecord"), HttpMethod.POST, entity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort(RECORD_URL), HttpMethod.POST, entity, String.class);
 		System.out.println(response);
 		
 		assertEquals(HttpStatus.BAD_REQUEST,response.getStatusCode());
@@ -142,7 +121,6 @@ public class RecordControllerTest {
 		
 		Record record = new Record();
 		record.setRequestId("4235-01277-239894");
-		//record.setEmailAddress("purple-wiki@blocks.com");
 		People nameOne= new People();
 		nameOne.setName("John Smith");
 		People nameTwo= new People();
@@ -156,7 +134,7 @@ public class RecordControllerTest {
 		record.setPepole(peoplelist);
 				
 		HttpEntity<Record> entity = new HttpEntity<Record>(record, headers);		
-		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/TestApp/addRecord"), HttpMethod.POST, entity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort(RECORD_URL), HttpMethod.POST, entity, String.class);
 		System.out.println(response);
 		
 		assertEquals(HttpStatus.BAD_REQUEST,response.getStatusCode());
@@ -171,29 +149,16 @@ public class RecordControllerTest {
 		record.setRequestId("4235-01277-239894");
 		record.setEmailAddress("purple-wiki@blocks.com");
 		List<People> peoplelist = new ArrayList<People>();		
-		/*
-		 * People nameOne= new People(); 
-		 * nameOne.setName("John Smith"); 
-		 * People nameTwo=new People(); 
-		 * nameTwo.setName("Willy Wonka"); 
-		 * People nameThree= new People();
-		 * nameThree.setName("Margaret Watson"); 
-		 * peoplelist.add(nameOne);
-		 * peoplelist.add(nameTwo); 
-		 * peoplelist.add(nameThree);
-		 * record.setPepole(peoplelist);
-		 */
 				
 		HttpEntity<Record> entity = new HttpEntity<Record>(record, headers);		
-		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/TestApp/addRecord"), HttpMethod.POST, entity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort(RECORD_URL), HttpMethod.POST, entity, String.class);
 		System.out.println(response);
 		
 		assertEquals(HttpStatus.BAD_REQUEST,response.getStatusCode());
 		assertEquals("Failed",response.getBody());
 	}
 	
-	
-	
+		
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;
 	}
