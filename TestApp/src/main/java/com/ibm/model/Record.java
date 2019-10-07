@@ -6,16 +6,19 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
+
 public class Record {
 	
-	@NotNull(message="requestId cannot be empty")
+	@NotNull()
 	private String requestId;
 	
-	@NotNull(message="emailAddress cannot be empty")
-	@Email(message="emailAddress must be a valid email format")
+	@NotNull()
+	@Email()
 	private String emailAddress;
 	
-	@NotNull(message="people cannot be empty")
+	@NotNull()
+	@Size(min=1)
 	private List<People> people;
 	
 	public Record() {

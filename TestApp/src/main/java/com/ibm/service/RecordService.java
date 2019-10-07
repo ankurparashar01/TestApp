@@ -2,21 +2,22 @@ package com.ibm.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.ibm.model.Record;
 import com.ibm.model.People;
+import com.ibm.model.Record;
 import com.ibm.model.SendResponse;
 
 @Service
 public class RecordService {
 
-	public Record returnData() {
+	public Record getRecord() {
 		
-		Record inputData = new Record();
+		Record record = new Record();
 		
-		inputData.setRequestId("4235-01277-239894");
-		inputData.setEmailAddress("purple-wiki@blocks.com");
+		record.setRequestId("4235-01277-239894");
+		record.setEmailAddress("purple-wiki@blocks.com");
 				
 		People nameOne= new People();
 		nameOne.setName("John Smith");
@@ -27,14 +28,14 @@ public class RecordService {
 		People nameThree= new People();
 		nameThree.setName("Margaret Watson");
 		
-		List<People> peoples = new ArrayList<People>();
-		peoples.add(nameOne);
-		peoples.add(nameTwo);
-		peoples.add(nameThree);
+		List<People> peoplelist = new ArrayList<People>();
+		peoplelist.add(nameOne);
+		peoplelist.add(nameTwo);
+		peoplelist.add(nameThree);
 		
-		inputData.setPepole(peoples);	
+		record.setPepole(peoplelist);	
 		
-		return inputData;
+		return record;
 	}
 
 	public SendResponse addRecord(Record inputData) {
