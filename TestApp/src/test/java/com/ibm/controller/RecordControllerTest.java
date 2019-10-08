@@ -59,12 +59,10 @@ public class RecordControllerTest {
 	@Test
 	public void addRecordHappyFlow() {	
 		
-		Record record = new Record();
-		ObjectMapper objectMapper = new ObjectMapper();
-		HttpEntity<Record> entity = new HttpEntity<Record>(record, headers);
+		ObjectMapper objectMapper = new ObjectMapper();		
 		RecordServiceResponse responses= null;	
 		ResponseEntity<String> responseEntity = null;			
-		
+		Record record = new Record();
 		record.setRequestId("4235-01277-239894");
 		record.setEmailAddress("purple-wiki@blocks.com");
 		People nameOne= new People();
@@ -78,7 +76,7 @@ public class RecordControllerTest {
 		peoplelist.add(nameTwo);
 		peoplelist.add(nameThree);
 		record.setPepole(peoplelist);				
-					
+		HttpEntity<Record> entity = new HttpEntity<Record>(record, headers);			
 		try {
 		responseEntity = restTemplate.exchange(createURLWithPort(RECORD_URL), HttpMethod.POST, entity, String.class);		
 		responses= objectMapper.readValue(responseEntity.getBody(), RecordServiceResponse.class);
