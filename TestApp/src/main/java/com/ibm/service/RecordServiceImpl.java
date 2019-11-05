@@ -2,9 +2,7 @@ package com.ibm.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.ibm.model.People;
 import com.ibm.model.Record;
 import com.ibm.model.RecordServiceResponse;
