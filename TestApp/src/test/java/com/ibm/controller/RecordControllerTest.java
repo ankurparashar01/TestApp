@@ -1,11 +1,9 @@
 package com.ibm.controller;
 
 import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +15,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.TestAppBootStrap;
 import com.ibm.model.People;
