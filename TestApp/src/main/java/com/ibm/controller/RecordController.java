@@ -16,11 +16,12 @@ import com.ibm.service.RecordService;
 
 @RestController
 public class RecordController {
-	
+	// added test mapping
+	// added test mapping at sunday..
 	@Autowired
 	private RecordService recordService;
 	
-	@RequestMapping("/welcome")
+	@RequestMapping("/welcome") // test helloo
 	public String Welcome() {
 		return "Welcome to Test App - a sample application....!!!!!!!!!!!" ;	}	
 	
